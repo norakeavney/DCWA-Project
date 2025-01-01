@@ -12,11 +12,26 @@ const port = 3004; //Port
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json()); 
 
+//Import routes
+const studentRoutes = require('./Routes/Students'); //Students page
+
 //Home route
 app.get('/', (req, res) => {
-  //HTML response with links to sections
-  res.send('<h1>Home Page</h1><ul><li><a href="#">Students</a></li><li><a href="#">Grades</a></li><li><a href="#">Lecturers</a></li></ul>');
+  res.send(`
+    <h1>Home Page</h1>
+    <ul>
+      <li><a href="/students">Students</a></li>
+      <li><a href="#">Grades</a></li>
+      <li><a href="#">Lecturers</a></li>
+    </ul>
+  `);
 });
+
+
+
+
+//Use routes
+app.use('/students', studentRoutes); //Student routes at /students
 
 //Start server
 app.listen(port, () => {
