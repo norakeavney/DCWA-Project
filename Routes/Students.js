@@ -73,6 +73,56 @@ router.get('/edit/:sid', (req, res) => {
   });
 });
 
+//Add student page (GET)
+router.get('/add', (req, res) => {
+  let response = `
+    <h1>Add Student</h1>
+    <a href="/">Home</a><br>
+    <form method="POST" action="/students/add">
+      <label>Student ID</label><br>
+      <input type="text" name="sid"><br>
+      <label>Name</label><br>
+      <input type="text" name="name"><br>
+      <label>Age</label><br>
+      <input type="number" name="age"><br>
+      <button type="submit">Add</button>
+    </form>
+  `;
+  res.send(response);
+});
+
+//Add student page (POST)
+router.post('/add', (req, res) => {
+  const { sid, name, age } = req.body;
+
+  //Validate Submission
+  if (sid.length !== 4 || name.length < 2 || age < 18) {
+    return res.send('<h1>Error, Please Ensure!</h1><p>Student ID must be 4 characters, Name must be at least 2 characters, and Age must be 18 or older.</p><a href="/">Home</a>');
+  }
+
+  //Check Student ID already exists
+  const checkQuery = 'SELECT * FROM student WHERE sid = ?';
+  mysql.query(checkQuery, [sid], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Database query failed');
+    }
+    if (results.length > 0) {
+      return res.send('<h1>Error</h1><p>Student ID already exists.</p><a href="/">Home</a>');
+    }
+
+    //Insert new student
+    const query = 'INSERT INTO student (sid, name, age) VALUES (?, ?, ?)';
+    mysql.query(query, [sid, name, age], (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send('Failed to add student');
+      }
+      res.redirect('/students');
+    });
+  });
+});
+
 //Update student page (POST)
 router.post('/edit/:sid', (req, res) => {
   const sid = req.params.sid;
@@ -80,7 +130,7 @@ router.post('/edit/:sid', (req, res) => {
 
   //Validation checks
   if (name.length < 2 || age < 18) {
-    return res.send('<h1>Error</h1><p>Name must be at least 2 characters and age must be 18 or older.</p><a href="/">Home</a>');
+    return res.send('<h1>Error Please Ensure!</h1><p>Name must be at least 2 characters and age must be 18 or older.</p><a href="/">Home</a>');
   }
 
   const query = 'UPDATE student SET name = ?, age = ? WHERE sid = ?';
