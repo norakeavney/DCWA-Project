@@ -12,6 +12,9 @@ const port = 3004; //Port
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json()); 
 
+//Styling
+app.use(express.static('public')); 
+
 //Import routes
 const studentRoutes = require('./Routes/Students'); //Students page
 const gradeRoutes = require('./Routes/Grades'); //Grades page

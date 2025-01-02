@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
     //Build HTML response - table structure
     let response = `
       <h1>Students</h1>
+      <link rel="stylesheet" href="/css/styles.css"> 
       <a href="/students/add">Add Student</a><br>
       <a href="/">Home</a>
       <table border="1">

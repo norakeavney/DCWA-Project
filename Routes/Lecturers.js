@@ -21,6 +21,7 @@ router.get('/', async (req, res) => {
         <html>
         <head>
         <title>Lecturers</title>
+        <link rel="stylesheet" href="/css/styles.css"> 
         </head>
         <body>
         <h1>Lecturers</h1>

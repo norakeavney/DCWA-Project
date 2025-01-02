@@ -23,20 +23,10 @@ router.get('/', (req, res) => {
 
    let response = `
    <html>
-   <head>
-     <title>Grades</title>
-     <style>
-       body { font-family: Arial, sans-serif; margin: 20px; }
-       h1 { color: #333; }
-       table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-       table, th, td { border: 1px solid #ddd; }
-       th, td { padding: 10px; text-align: left; }
-       th { background-color: #f4f4f4; }
-       a { text-decoration: none; color: #007BFF; margin-right: 10px; }
-       a:hover { text-decoration: underline; }
-       .sort-options { margin-bottom: 20px; }
-     </style>
-   </head>
+    <head>
+      <title>Grades</title>
+      <link rel="stylesheet" href="/css/styles.css"> 
+    </head>
    <body>
      <h1>Grades</h1>
      <a href="/">Home</a>
