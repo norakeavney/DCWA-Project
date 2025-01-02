@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 //Import routes
 const studentRoutes = require('./Routes/Students'); //Students page
 const gradeRoutes = require('./Routes/Grades'); //Grades page
+const lecturerRoutes = require('./Routes/Lecturers'); //Lecturers page
 
 //Home route
 app.get('/', (req, res) => {
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
     <ul>
       <li><a href="/students">Students</a></li>
       <li><a href="/grades">Grades</a></li>
-      <li><a href="#">Lecturers</a></li>
+      <li><a href="lecturers">Lecturers</a></li>
     </ul>
   `);
 });
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 //Use routes
 app.use('/students', studentRoutes); //Student routes at /students
 app.use('/grades', gradeRoutes);
+app.use('/lecturers', lecturerRoutes);
 
 //Start server
 app.listen(port, () => {
